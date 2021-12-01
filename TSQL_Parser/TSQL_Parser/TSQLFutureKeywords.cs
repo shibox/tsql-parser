@@ -11,13 +11,13 @@ namespace TSQL
 
 		public static readonly TSQLFutureKeywords None = new TSQLFutureKeywords("");
 
-#pragma warning disable 1591
+
 
 		public static readonly TSQLFutureKeywords OUTPUT = new TSQLFutureKeywords("OUTPUT");
 		public static readonly TSQLFutureKeywords USING = new TSQLFutureKeywords("USING");
 		public static readonly TSQLFutureKeywords OFFSET = new TSQLFutureKeywords("OFFSET");
 
-#pragma warning restore 1591
+
 
 		private readonly string Keyword;
 
@@ -64,7 +64,7 @@ namespace TSQL
 				keywords.Contains(this);
 		}
 
-#pragma warning disable 1591
+
 
 		public static bool operator ==(
 			TSQLFutureKeywords a,
@@ -102,6 +102,6 @@ namespace TSQL
 			return Keyword.GetHashCode();
 		}
 
-#pragma warning restore 1591
+
 	}
 }

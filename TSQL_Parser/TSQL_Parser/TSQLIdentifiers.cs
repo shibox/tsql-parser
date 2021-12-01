@@ -12,7 +12,7 @@ namespace TSQL
 
 		public static readonly TSQLIdentifiers None = new TSQLIdentifiers("");
 
-#pragma warning disable 1591
+
 
 		public static readonly TSQLIdentifiers COALESCE = new TSQLIdentifiers("COALESCE");
 		public static readonly TSQLIdentifiers CONTAINS = new TSQLIdentifiers("CONTAINS");
@@ -37,7 +37,7 @@ namespace TSQL
 		public static readonly TSQLIdentifiers SYSTEM_USER = new TSQLIdentifiers("SYSTEM_USER");
 		public static readonly TSQLIdentifiers TRY_CONVERT = new TSQLIdentifiers("TRY_CONVERT");
 
-#pragma warning restore 1591
+
 
 		private readonly string Identifier;
 
@@ -86,7 +86,7 @@ namespace TSQL
 				identifiers.Contains(this);
 		}
 
-#pragma warning disable 1591
+
 
 		public static bool operator ==(
 			TSQLIdentifiers a,
@@ -124,6 +124,6 @@ namespace TSQL
 			return Identifier.GetHashCode();
 		}
 
-#pragma warning restore 1591
+
 	}
 }

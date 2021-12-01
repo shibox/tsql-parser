@@ -44,7 +44,7 @@ namespace TSQL.Tokens
 			Value = Value.Replace("\\\n", "");
 		}
 
-#pragma warning disable 1591
+
 
 		public override TSQLTokenType Type
 		{
@@ -54,7 +54,7 @@ namespace TSQL.Tokens
 			}
 		}
 
-#pragma warning restore 1591
+
 
 		/// <summary>
 		///		Value inside quotes unescaped.

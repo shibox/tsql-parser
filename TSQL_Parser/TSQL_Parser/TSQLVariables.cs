@@ -12,7 +12,7 @@ namespace TSQL
 
 		public static readonly TSQLVariables None = new TSQLVariables("");
 
-#pragma warning disable 1591
+
 
 		public static readonly TSQLVariables CONNECTIONS = new TSQLVariables("@@CONNECTIONS");
 		public static readonly TSQLVariables MAX_CONNECTIONS = new TSQLVariables("@@MAX_CONNECTIONS");
@@ -38,7 +38,7 @@ namespace TSQL
 		public static readonly TSQLVariables TRANCOUNT = new TSQLVariables("@@TRANCOUNT");
 		public static readonly TSQLVariables VERSION = new TSQLVariables("@@VERSION");
 
-#pragma warning restore 1591
+
 
 		private readonly string Variable;
 
@@ -87,7 +87,7 @@ namespace TSQL
 				variables.Contains(this);
 		}
 
-#pragma warning disable 1591
+
 
 		public static bool operator ==(
 			TSQLVariables a,
@@ -125,6 +125,6 @@ namespace TSQL
 			return Variable.GetHashCode();
 		}
 
-#pragma warning restore 1591
+
 	}
 }

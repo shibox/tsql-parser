@@ -2,7 +2,7 @@
 {
 	public enum TSQLStatementType
 	{
-#pragma warning disable 1591
+
 
 		Select,
 		Insert,
@@ -12,6 +12,6 @@
 		Merge,
 		Unknown
 
-#pragma warning restore 1591
+
 	}
 }

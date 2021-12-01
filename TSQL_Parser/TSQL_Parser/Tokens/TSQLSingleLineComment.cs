@@ -14,7 +14,7 @@ namespace TSQL.Tokens
 			Comment = Text.Substring(2);
 		}
 
-#pragma warning disable 1591
+
 
 		public override TSQLTokenType Type
 		{
@@ -24,6 +24,6 @@ namespace TSQL.Tokens
 			}
 		}
 
-#pragma warning restore 1591
+
 	}
 }

@@ -11,7 +11,7 @@ namespace TSQL
 
 		public static readonly TSQLKeywords None = new TSQLKeywords("");
 
-#pragma warning disable 1591
+
 
 		#region commands
 
@@ -202,7 +202,7 @@ namespace TSQL
 		// WITHIN {GROUP}
 		public static readonly TSQLKeywords WITHIN = new TSQLKeywords("WITHIN");
 
-#pragma warning restore 1591
+
 
 		#endregion
 
@@ -264,7 +264,7 @@ namespace TSQL
 				keywords.Contains(this);
 		}
 
-#pragma warning disable 1591
+
 
 		public static bool operator ==(
 			TSQLKeywords a,
@@ -302,6 +302,6 @@ namespace TSQL
 			return Keyword.GetHashCode();
 		}
 
-#pragma warning restore 1591
+
 	}
 }

@@ -11,7 +11,7 @@ namespace TSQL
 
 		public static readonly TSQLCharacters None = new TSQLCharacters(string.Empty);
 
-#pragma warning disable 1591
+
 
 		public static readonly TSQLCharacters Comma = new TSQLCharacters(",");
 		public static readonly TSQLCharacters Semicolon = new TSQLCharacters(";");
@@ -20,7 +20,7 @@ namespace TSQL
 		public static readonly TSQLCharacters Period = new TSQLCharacters(".");
 		//public static readonly TSQLCharacters Asterisk = new TSQLCharacters
 
-#pragma warning restore 1591
+
 
 		private readonly string Token;
 
@@ -69,7 +69,7 @@ namespace TSQL
 				characters.Contains(this);
 		}
 
-#pragma warning disable 1591
+
 
 		public static bool operator ==(
 			TSQLCharacters a,
@@ -107,7 +107,7 @@ namespace TSQL
 			return Token.GetHashCode();
 		}
 
-#pragma warning restore 1591
+
 	}
 
 }

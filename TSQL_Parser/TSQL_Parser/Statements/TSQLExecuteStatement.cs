@@ -14,7 +14,7 @@ namespace TSQL.Statements
 
 		}
 
-#pragma warning disable 1591
+
 
 		public override TSQLStatementType Type
 		{
@@ -24,6 +24,6 @@ namespace TSQL.Statements
 			}
 		}
 
-#pragma warning restore 1591
+
 	}
 }

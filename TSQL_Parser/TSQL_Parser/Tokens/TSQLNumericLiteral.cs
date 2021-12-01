@@ -19,7 +19,7 @@ namespace TSQL.Tokens
 			Value = Double.Parse(Text, NumberStyles.Any, new CultureInfo("en-US"));
 		}
 
-#pragma warning disable 1591
+
 
 		public override TSQLTokenType Type
 		{
@@ -29,7 +29,7 @@ namespace TSQL.Tokens
 			}
 		}
 
-#pragma warning restore 1591
+
 
 		public double Value
 		{
