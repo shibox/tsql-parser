@@ -6,21 +6,15 @@ namespace TSQL
 {
 	public struct TSQLCharacters
 	{
-		private static Dictionary<string, TSQLCharacters> characterLookup =
-			new Dictionary<string, TSQLCharacters>(StringComparer.OrdinalIgnoreCase);
+		private static Dictionary<string, TSQLCharacters> characterLookup = new(StringComparer.OrdinalIgnoreCase);
 
 		public static readonly TSQLCharacters None = new TSQLCharacters(string.Empty);
 
-
-
-		public static readonly TSQLCharacters Comma = new TSQLCharacters(",");
-		public static readonly TSQLCharacters Semicolon = new TSQLCharacters(";");
-		public static readonly TSQLCharacters OpenParentheses = new TSQLCharacters("(");
-		public static readonly TSQLCharacters CloseParentheses = new TSQLCharacters(")");
-		public static readonly TSQLCharacters Period = new TSQLCharacters(".");
-		//public static readonly TSQLCharacters Asterisk = new TSQLCharacters
-
-
+		public static readonly TSQLCharacters Comma = new(",");
+		public static readonly TSQLCharacters Semicolon = new(";");
+		public static readonly TSQLCharacters OpenParentheses = new("(");
+		public static readonly TSQLCharacters CloseParentheses = new(")");
+		public static readonly TSQLCharacters Period = new(".");
 
 		private readonly string Token;
 
@@ -45,7 +39,7 @@ namespace TSQL
 			}
 			else
 			{
-				return TSQLCharacters.None;
+				return None;
 			}
 		}
 

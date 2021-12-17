@@ -896,7 +896,9 @@ namespace TSQL
 				}
 			}
 
-			_current = DetermineTokenType(
+            //characterHolder.Length = 1;
+            //characterHolder[0] = ' ';
+            _current = DetermineTokenType(
 				characterHolder.ToString(),
 				startPosition,
 				startPosition + characterHolder.Length - 1);
@@ -907,16 +909,14 @@ namespace TSQL
 			int startPosition,
 			int endPosition)
 		{
-			if (
-				char.IsWhiteSpace(tokenValue[0]))
+			if (char.IsWhiteSpace(tokenValue[0]))
 			{
 				return
 					new TSQLWhitespace(
 						startPosition,
 						tokenValue);
 			}
-			else if (
-				tokenValue[0] == '@')
+			else if (tokenValue[0] == '@')
 			{
 				if (TSQLVariables.IsVariable(tokenValue))
 				{
@@ -933,15 +933,17 @@ namespace TSQL
 							tokenValue);
 				}
 			}
-			else if (tokenValue.StartsWith("--"))
-			{
+            else if (tokenValue.Length >= 2 && tokenValue[0] == '-' && tokenValue[1] == '-')
+            //else if (tokenValue.StartsWith("--"))
+            {
 				return
 					new TSQLSingleLineComment(
 						startPosition,
 						tokenValue);
 			}
-			else if (tokenValue.StartsWith("/*"))
-			{
+            else if (tokenValue.Length >= 2 && tokenValue[0] == '/' && tokenValue[1] == '*')
+            //else if (tokenValue.StartsWith("/*"))
+            {
 				if (tokenValue.EndsWith("*/"))
 				{
 					return
@@ -957,10 +959,12 @@ namespace TSQL
 							tokenValue);
 				}
 			}
-			else if (
-				tokenValue.StartsWith("'") ||
-				tokenValue.StartsWith("N'"))
-			{
+            //else if (
+            //    tokenValue.StartsWith("'") ||
+            //    tokenValue.StartsWith("N'"))
+            else if ((tokenValue.Length >= 1 && tokenValue[0] == '\'') || 
+				(tokenValue.Length >= 2 && tokenValue[0] == 'N' && tokenValue[1] == '\''))
+            {
 				// make sure there's an even number of quotes so that it's closed properly
 				if ((tokenValue.Split('\'').Length - 1) % 2 == 0)
 				{
@@ -977,9 +981,10 @@ namespace TSQL
 							tokenValue);
 				}
 			}
-			else if (
-				!UseQuotedIdentifiers &&
-				tokenValue.StartsWith("\""))
+			else if (!UseQuotedIdentifiers && tokenValue.Length >= 1 && tokenValue[0] == '\"')
+			//else if (
+			//	!UseQuotedIdentifiers &&
+			//	tokenValue.StartsWith("\""))
 			{
 				// make sure there's an even number of quotes so that it's closed properly
 				if ((tokenValue.Split('\"').Length - 1) % 2 == 0)
@@ -997,8 +1002,7 @@ namespace TSQL
 							tokenValue);
 				}
 			}
-			else if (
-				tokenValue[0] == '$')
+			else if (tokenValue[0] == '$')
 			{
 				// $IDENTITY
 				if (
@@ -1026,7 +1030,8 @@ namespace TSQL
 						startPosition,
 						tokenValue);
 			}
-			else if (tokenValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+			else if (tokenValue.Length >= 2 && tokenValue[0] == '0' && (tokenValue[1] == 'x' || tokenValue[1] == 'X'))
+			//else if (tokenValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
 			{
 				return
 					new TSQLBinaryLiteral(
@@ -1074,47 +1079,77 @@ namespace TSQL
 						startPosition,
 						tokenValue);
 			}
-			else if (TSQLKeywords.IsKeyword(tokenValue))
+            else if (TSQLKeywords.IsKeyword(tokenValue))
+            {
+                return
+                    new TSQLKeyword(
+                        startPosition,
+                        tokenValue);
+            }
+            //if (TSQLKeywords.TryGetValue(tokenValue, out var keyword))
+            //    return new TSQLKeyword(
+            //            startPosition,
+            //            keyword);
+            else if (TSQLIdentifiers.IsIdentifier(tokenValue))
+            {
+                return
+                    new TSQLSystemIdentifier(
+                        startPosition,
+                        tokenValue);
+            }
+            else
 			{
-				return
-					new TSQLKeyword(
-						startPosition,
-						tokenValue);
-			}
-			else if (TSQLIdentifiers.IsIdentifier(tokenValue))
-			{
-				return
-					new TSQLSystemIdentifier(
-						startPosition,
-						tokenValue);
-			}
-			else
-			{
-				if (
-					(
-						tokenValue.StartsWith("[") &&
-						!tokenValue.EndsWith("]")
-					)	||
-					(
-						UseQuotedIdentifiers &&
-						tokenValue.StartsWith("\"") &&
-						// see if there's an odd number of quotes
-						(tokenValue.Split('\"').Length - 1) % 2 == 1
-					))
-				{
-					return
-						new TSQLIncompleteIdentifierToken(
-							startPosition,
-							tokenValue);
-				}
-				else
-				{
-					return
-						new TSQLIdentifier(
-							startPosition,
-							tokenValue);
-				}
-			}
+                if (
+                  (
+                      tokenValue.Length >= 2 && tokenValue[0] == '[' &&
+                      tokenValue[tokenValue.Length - 1] != ']'
+                  ) ||
+                  (
+                      UseQuotedIdentifiers &&
+					  tokenValue.Length >= 1 && tokenValue[0] == '\"' && 
+					  //tokenValue.StartsWith("\"") &&
+                      // see if there's an odd number of quotes
+                      (tokenValue.Split('\"').Length - 1) % 2 == 1
+                  ))
+                {
+                    return
+                        new TSQLIncompleteIdentifierToken(
+                            startPosition,
+                            tokenValue);
+                }
+                else
+                {
+                    return
+                        new TSQLIdentifier(
+                            startPosition,
+                            tokenValue);
+                }
+
+                //if (
+                //	(
+                //		tokenValue.StartsWith("[") &&
+                //		!tokenValue.EndsWith("]")
+                //	) ||
+                //	(
+                //		UseQuotedIdentifiers &&
+                //		tokenValue.StartsWith("\"") &&
+                //		// see if there's an odd number of quotes
+                //		(tokenValue.Split('\"').Length - 1) % 2 == 1
+                //	))
+                //{
+                //	return
+                //		new TSQLIncompleteIdentifierToken(
+                //			startPosition,
+                //			tokenValue);
+                //}
+                //else
+                //{
+                //	return
+                //		new TSQLIdentifier(
+                //			startPosition,
+                //			tokenValue);
+                //}
+            }
 		}
 
 		public void Putback()

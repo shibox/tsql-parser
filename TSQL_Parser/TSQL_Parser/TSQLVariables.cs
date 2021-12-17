@@ -7,43 +7,37 @@ namespace TSQL
 {
 	public struct TSQLVariables
 	{
-		private static Dictionary<string, TSQLVariables> variableLookup =
-			new Dictionary<string, TSQLVariables>(StringComparer.OrdinalIgnoreCase);
+		private static Dictionary<string, TSQLVariables> variableLookup = new(StringComparer.OrdinalIgnoreCase);
 
-		public static readonly TSQLVariables None = new TSQLVariables("");
+		public static readonly TSQLVariables None = new("");
 
-
-
-		public static readonly TSQLVariables CONNECTIONS = new TSQLVariables("@@CONNECTIONS");
-		public static readonly TSQLVariables MAX_CONNECTIONS = new TSQLVariables("@@MAX_CONNECTIONS");
-		public static readonly TSQLVariables CPU_BUSY = new TSQLVariables("@@CPU_BUSY");
-		public static readonly TSQLVariables ERROR = new TSQLVariables("@@ERROR");
-		public static readonly TSQLVariables IDENTITY = new TSQLVariables("@@IDENTITY");
-		public static readonly TSQLVariables IDLE = new TSQLVariables("@@IDLE");
-		public static readonly TSQLVariables IO_BUSY = new TSQLVariables("@@IO_BUSY");
-		public static readonly TSQLVariables LANGID = new TSQLVariables("@@LANGID");
-		public static readonly TSQLVariables LANGUAGE = new TSQLVariables("@@LANGUAGE");
-		public static readonly TSQLVariables MAXCHARLEN = new TSQLVariables("@@MAXCHARLEN");
-		public static readonly TSQLVariables PACK_RECEIVED = new TSQLVariables("@@PACK_RECEIVED");
-		public static readonly TSQLVariables PACK_SENT = new TSQLVariables("@@PACK_SENT");
-		public static readonly TSQLVariables PACKET_ERRORS = new TSQLVariables("@@PACKET_ERRORS");
-		public static readonly TSQLVariables ROWCOUNT = new TSQLVariables("@@ROWCOUNT");
-		public static readonly TSQLVariables SERVERNAME = new TSQLVariables("@@SERVERNAME");
-		public static readonly TSQLVariables SPID = new TSQLVariables("@@SPID");
-		public static readonly TSQLVariables TEXTSIZE = new TSQLVariables("@@TEXTSIZE");
-		public static readonly TSQLVariables TIMETICKS = new TSQLVariables("@@TIMETICKS");
-		public static readonly TSQLVariables TOTAL_ERRORS = new TSQLVariables("@@TOTAL_ERRORS");
-		public static readonly TSQLVariables TOTAL_READ = new TSQLVariables("@@TOTAL_READ");
-		public static readonly TSQLVariables TOTAL_WRITE = new TSQLVariables("@@TOTAL_WRITE");
-		public static readonly TSQLVariables TRANCOUNT = new TSQLVariables("@@TRANCOUNT");
-		public static readonly TSQLVariables VERSION = new TSQLVariables("@@VERSION");
-
-
+		public static readonly TSQLVariables CONNECTIONS = new("@@CONNECTIONS");
+		public static readonly TSQLVariables MAX_CONNECTIONS = new("@@MAX_CONNECTIONS");
+		public static readonly TSQLVariables CPU_BUSY = new("@@CPU_BUSY");
+		public static readonly TSQLVariables ERROR = new("@@ERROR");
+		public static readonly TSQLVariables IDENTITY = new("@@IDENTITY");
+		public static readonly TSQLVariables IDLE = new("@@IDLE");
+		public static readonly TSQLVariables IO_BUSY = new("@@IO_BUSY");
+		public static readonly TSQLVariables LANGID = new("@@LANGID");
+		public static readonly TSQLVariables LANGUAGE = new("@@LANGUAGE");
+		public static readonly TSQLVariables MAXCHARLEN = new("@@MAXCHARLEN");
+		public static readonly TSQLVariables PACK_RECEIVED = new("@@PACK_RECEIVED");
+		public static readonly TSQLVariables PACK_SENT = new("@@PACK_SENT");
+		public static readonly TSQLVariables PACKET_ERRORS = new("@@PACKET_ERRORS");
+		public static readonly TSQLVariables ROWCOUNT = new("@@ROWCOUNT");
+		public static readonly TSQLVariables SERVERNAME = new("@@SERVERNAME");
+		public static readonly TSQLVariables SPID = new("@@SPID");
+		public static readonly TSQLVariables TEXTSIZE = new("@@TEXTSIZE");
+		public static readonly TSQLVariables TIMETICKS = new("@@TIMETICKS");
+		public static readonly TSQLVariables TOTAL_ERRORS = new("@@TOTAL_ERRORS");
+		public static readonly TSQLVariables TOTAL_READ = new("@@TOTAL_READ");
+		public static readonly TSQLVariables TOTAL_WRITE = new("@@TOTAL_WRITE");
+		public static readonly TSQLVariables TRANCOUNT = new("@@TRANCOUNT");
+		public static readonly TSQLVariables VERSION = new("@@VERSION");
 
 		private readonly string Variable;
 
-		private TSQLVariables(
-			string variable)
+		private TSQLVariables(string variable)
 		{
 			Variable = variable;
 			if (variable.Length > 0)
@@ -52,8 +46,7 @@ namespace TSQL
 			}
 		}
 
-		public static TSQLVariables Parse(
-			string token)
+		public static TSQLVariables Parse(string token)
 		{
 			if (
 				!string.IsNullOrEmpty(token) &&
@@ -63,12 +56,11 @@ namespace TSQL
 			}
 			else
 			{
-				return TSQLVariables.None;
+				return None;
 			}
 		}
 
-		public static bool IsVariable(
-			string token)
+		public static bool IsVariable(string token)
 		{
 			if (!string.IsNullOrWhiteSpace(token))
 			{

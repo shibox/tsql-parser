@@ -9,15 +9,11 @@ namespace TSQL
 		private static Dictionary<string, TSQLFutureKeywords> keywordLookup =
 			new Dictionary<string, TSQLFutureKeywords>(StringComparer.OrdinalIgnoreCase);
 
-		public static readonly TSQLFutureKeywords None = new TSQLFutureKeywords("");
+		public static readonly TSQLFutureKeywords None = new("");
 
-
-
-		public static readonly TSQLFutureKeywords OUTPUT = new TSQLFutureKeywords("OUTPUT");
-		public static readonly TSQLFutureKeywords USING = new TSQLFutureKeywords("USING");
-		public static readonly TSQLFutureKeywords OFFSET = new TSQLFutureKeywords("OFFSET");
-
-
+		public static readonly TSQLFutureKeywords OUTPUT = new("OUTPUT");
+		public static readonly TSQLFutureKeywords USING = new("USING");
+		public static readonly TSQLFutureKeywords OFFSET = new("OFFSET");
 
 		private readonly string Keyword;
 
@@ -40,7 +36,7 @@ namespace TSQL
 			}
 			else
 			{
-				return TSQLFutureKeywords.None;
+				return None;
 			}
 		}
 

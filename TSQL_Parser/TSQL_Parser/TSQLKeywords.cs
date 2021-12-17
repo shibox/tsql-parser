@@ -206,7 +206,7 @@ namespace TSQL
 
 		#endregion
 
-		private readonly string Keyword;
+		internal readonly string Keyword;
 
 		private TSQLKeywords(
 			string keyword)
@@ -234,14 +234,23 @@ namespace TSQL
 		public static TSQLKeywords Parse(
 			string token)
 		{
-			if (keywordLookup.ContainsKey(token))
+			if (keywordLookup.TryGetValue(token,out var v))
 			{
-				return keywordLookup[token];
+				return v;
 			}
 			else
 			{
 				return TSQLKeywords.None;
 			}
+
+			//if (keywordLookup.ContainsKey(token))
+			//{
+			//	return keywordLookup[token];
+			//}
+			//else
+			//{
+			//	return TSQLKeywords.None;
+			//}
 		}
 
 		public static bool IsKeyword(
@@ -253,6 +262,17 @@ namespace TSQL
 			}
 			else
 			{
+				return false;
+			}
+		}
+
+		public static bool TryGetValue(string token,out TSQLKeywords value)
+		{
+			if (!string.IsNullOrWhiteSpace(token))
+				return keywordLookup.TryGetValue(token, out value);
+			else
+			{
+				value = TSQLKeywords.None;
 				return false;
 			}
 		}

@@ -86,8 +86,8 @@ namespace TSQL
 					return _hasMore;
 				}
 
-				_current = new TSQLStatementParserFactory().Create(_tokenizer).Parse();
-			}
+                _current = new TSQLStatementParserFactory().Create(_tokenizer).Parse();
+            }
 
 			return _hasMore;
 		}

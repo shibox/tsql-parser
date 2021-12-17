@@ -56,14 +56,25 @@ namespace TSQL
 		{
 			if (
 				!string.IsNullOrEmpty(token) &&
-				identifierLookup.ContainsKey(token))
+				identifierLookup.TryGetValue(token,out var v))
 			{
-				return identifierLookup[token];
+				return v;
 			}
 			else
 			{
 				return TSQLIdentifiers.None;
 			}
+
+			//if (
+			//	!string.IsNullOrEmpty(token) &&
+			//	identifierLookup.ContainsKey(token))
+			//{
+			//	return identifierLookup[token];
+			//}
+			//else
+			//{
+			//	return TSQLIdentifiers.None;
+			//}
 		}
 
 		public static bool IsIdentifier(

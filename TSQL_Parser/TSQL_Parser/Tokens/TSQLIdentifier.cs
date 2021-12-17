@@ -11,30 +11,58 @@ namespace TSQL.Tokens
 				beginPosition,
 				text)
 		{
-			if (Text.StartsWith("["))
-			{
-				Name = Text
-					.Substring(1, Text.Length - 2)
-					.Replace("]]", "]");
-			}
-			// check for quoted identifiers here just in case
-			else if (Text.StartsWith("\""))
-			{
-				Name = Text
-					.Substring(1, Text.Length - 2)
-					.Replace("\"\"", "\"");
-			}
-			else if (Text.StartsWith("N\""))
-			{
-				Name = Text
-					.Substring(2, Text.Length - 3)
-					.Replace("\"\"", "\"");
-			}
-			else
-			{
-				Name = Text;
-			}
-		}
+            if (Text?.Length > 0)
+            {
+                var first = Text[0];
+                if (first == '[')
+                {
+                    Name = Text
+                        .Substring(1, Text.Length - 2)
+                        .Replace("]]", "]");
+                }
+                // check for quoted identifiers here just in case
+                else if (first == '\"')
+                {
+                    Name = Text
+                        .Substring(1, Text.Length - 2)
+                        .Replace("\"\"", "\"");
+                }
+                else if (Text.Length >= 2 && first == 'N' && Text[1] == '\"')
+                {
+                    Name = Text
+                        .Substring(2, Text.Length - 3)
+                        .Replace("\"\"", "\"");
+                }
+                else
+                    Name = Text;
+            }
+            else
+                Name = Text;
+
+            //if (Text.StartsWith("["))
+            //{
+            //    Name = Text
+            //        .Substring(1, Text.Length - 2)
+            //        .Replace("]]", "]");
+            //}
+            //// check for quoted identifiers here just in case
+            //else if (Text.StartsWith("\""))
+            //{
+            //    Name = Text
+            //        .Substring(1, Text.Length - 2)
+            //        .Replace("\"\"", "\"");
+            //}
+            //else if (Text.StartsWith("N\""))
+            //{
+            //    Name = Text
+            //        .Substring(2, Text.Length - 3)
+            //        .Replace("\"\"", "\"");
+            //}
+            //else
+            //{
+            //    Name = Text;
+            //}
+        }
 
 
 

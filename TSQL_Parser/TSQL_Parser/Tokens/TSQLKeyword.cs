@@ -14,9 +14,17 @@ namespace TSQL.Tokens
 			Keyword = TSQLKeywords.Parse(text);
 		}
 
+        internal TSQLKeyword(
+            int beginPosition,
+            TSQLKeywords keyword) :
+            base(
+                beginPosition,
+                keyword.Keyword)
+        {
+            Keyword = keyword;
+        }
 
-
-		public override TSQLTokenType Type
+        public override TSQLTokenType Type
 		{
 			get
 			{
